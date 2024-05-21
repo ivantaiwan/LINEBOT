@@ -13,6 +13,11 @@ configuration = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 
+@app.route('/')
+def hello_world():
+    return "Welcome to the service!"
+
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -40,4 +45,3 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run()
-    
