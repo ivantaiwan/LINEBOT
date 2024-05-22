@@ -46,7 +46,7 @@ def handle_message(event):
 
 @handler.add(JoinEvent)
 def handle_join(event):
-    if isinstance(event.source, SourceGroup):
+    if isinstance(event.source, GroupSource):
         group_id = event.source.group_id
         user_id = event.source.user_id
         # Ideally, fetch user profiles from LINE to get names, for simplicity using user_id here.
