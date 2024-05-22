@@ -1,7 +1,7 @@
 from flask import Flask, request, abort
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
-from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
+from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage, ProfileRequest
 from linebot.v3.webhooks import MessageEvent, TextMessageContent, JoinEvent
 from linebot.v3.webhooks import UserSource, GroupSource, RoomSource
 
@@ -56,9 +56,9 @@ def handle_join(event):
 
         with ApiClient(configuration) as api_client:
             line_bot_api = MessagingApi(api_client)
-            line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=welcome_message)]
+            line_bot_api.push_message_with_http_info(ReplyMessageRequest(
+                event.source.group_id,
+                [TextMessage(text=welcome_message)]
             ))
 
 if __name__ == "__main__":
