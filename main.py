@@ -50,9 +50,9 @@ def handle_join(event):
         group_id = event.source.group_id
         user_id = event.source.user_id
         # Ideally, fetch user profiles from LINE to get names, for simplicity using user_id here.
-        welcome_message = f"""Welcome, {new_member_name}! 歡迎加入群組，目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
-啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
-
+        welcome_message = "Hello!!!"
+        # welcome_message = f"""Welcome, {new_member_name}! 歡迎加入群組，目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
+# 啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
 
         with ApiClient(configuration) as api_client:
             line_bot_api = MessagingApi(api_client)
