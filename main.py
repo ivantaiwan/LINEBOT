@@ -4,7 +4,6 @@ from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 from linebot.v3.webhooks import MessageEvent, TextMessageContent, JoinEvent
 from linebot.v3.webhooks import MemberJoinedEvent
-from linebot.v3.models import Profile
 
 app = Flask(__name__)
 
