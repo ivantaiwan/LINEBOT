@@ -45,26 +45,6 @@ def handle_message(event):
         line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=event.message.text)]))
 
 
-# @handler.add(MemberJoinedEvent)
-# def handle_member_joined(event):
-#     with ApiClient(configuration) as api_client:
-#         line_bot_api = MessagingApi(api_client)
-#         user_id = event.joined.members[0].user_id  # Assuming one user joined
-#         try:
-#             profile = line_bot_api.get_profile(user_id)
-#             display_name = profile.display_name
-#         except LineBotApiError:
-#             display_name = "未知用戶"
-#             app.logger.error(f"Failed to get profile for user {user_id}")
-    
-#         welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
-#     # 啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
-    
-#         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
-#             reply_token=event.reply_token,
-#             messages=[TextMessage(text=welcome_message)]
-#         ))
-
 @handler.add(MemberJoinedEvent)
 def handle_member_joined(event):
     with ApiClient(configuration) as api_client:
@@ -76,28 +56,48 @@ def handle_member_joined(event):
         except LineBotApiError:
             display_name = "未知用戶"
             app.logger.error(f"Failed to get profile for user {user_id}")
-        
-        # 构建 mention 数据结构
-        mention_data = Mention(
-            mentionees=[
-                Mentionee(
-                    index=3,  # “歡迎”后面的位置
-                    length=len(display_name),  # 用户名的长度
-                    user_id=user_id
-                )
-            ]
-        )
-
-        # 构建带 mention 的欢迎消息
-        text_message = TextMessage(
-            text=f"歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁 #啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁",
-            mentions=mention_data
-        )
+    
+        welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
+    # 啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
     
         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
             reply_token=event.reply_token,
-            messages=[text_message]
+            messages=[TextMessage(text=welcome_message)]
         ))
+
+# @handler.add(MemberJoinedEvent)
+# def handle_member_joined(event):
+#     with ApiClient(configuration) as api_client:
+#         line_bot_api = MessagingApi(api_client)
+#         user_id = event.joined.members[0].user_id  # Assuming one user joined
+#         try:
+#             profile = line_bot_api.get_profile(user_id)
+#             display_name = profile.display_name
+#         except LineBotApiError:
+#             display_name = "未知用戶"
+#             app.logger.error(f"Failed to get profile for user {user_id}")
+        
+#         # 构建 mention 数据结构
+#         mention_data = Mention(
+#             mentionees=[
+#                 Mentionee(
+#                     index=3,  # “歡迎”后面的位置
+#                     length=len(display_name),  # 用户名的长度
+#                     user_id=user_id
+#                 )
+#             ]
+#         )
+
+#         # 构建带 mention 的欢迎消息
+#         text_message = TextMessage(
+#             text=f"歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁 #啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁",
+#             mentions=mention_data
+#         )
+    
+#         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
+#             reply_token=event.reply_token,
+#             messages=[text_message]
+#         ))
 
 if __name__ == "__main__":
     app.run()
