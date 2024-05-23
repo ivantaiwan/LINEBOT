@@ -38,11 +38,11 @@ def callback():
     return 'OK'
 
 
-@handler.add(MessageEvent, message=TextMessageContent)
-def handle_message(event):
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=event.message.text)]))
+# @handler.add(MessageEvent, message=TextMessageContent)
+# def handle_message(event):
+#     with ApiClient(configuration) as api_client:
+#         line_bot_api = MessagingApi(api_client)
+#         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(reply_token=event.reply_token, messages=[TextMessage(text=event.message.text)]))
 
 
 @handler.add(MemberJoinedEvent)
@@ -56,11 +56,8 @@ def handle_member_joined(event):
         except LineBotApiError:
             display_name = "未知用戶"
             app.logger.error(f"Failed to get profile for user {user_id}")
-    
-        welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，
-        直接在底下喊+1，然後在@主揪喔。\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n
-        啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
 
+        welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後再@主揪喔。\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n如果要開團，可以放到記事本讓大家加入唷😁😁"""
     
         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
             reply_token=event.reply_token,
