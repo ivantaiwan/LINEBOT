@@ -2,7 +2,7 @@ from flask import Flask, request, abort
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
-from linebot.v3.webhooks import MessageEvent, TextMessageContent, JoinEvent
+from linebot.v3.webhooks import MessageEvent, TextMessageContent, JoinEvent, UserSource,
 from linebot.v3.webhooks import MemberJoinedEvent
 
 app = Flask(__name__)
@@ -62,6 +62,7 @@ def handle_message(event):
 
 @handler.add(MemberJoinedEvent)
 def handle_member_joined(event):
+    line_bot_api = MessagingApi(api_client)
     user_id = event.joined.members[0].user_id  # Assuming one user joined
     try:
         profile = line_bot_api.get_profile(user_id)
