@@ -57,46 +57,13 @@ def handle_member_joined(event):
             display_name = "未知用戶"
             app.logger.error(f"Failed to get profile for user {user_id}")
 
-        welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後再@主揪喔。\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n如果要開團，可以放到記事本讓大家加入唷😁😁"""
-    
+        # welcome_message = f"""歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後再@主揪喔。\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n如果要開團，可以放到記事本讓大家加入唷😁😁"""
+        welcome_message = f"""歡迎 {display_name} 加入群組！群組無任何版主，由熱心的球友們共同維護，要拉人請隨意，無需告知。\n\n請遵守板規如下⬇️\n\n1. 不做任何營銷及商業行為，若需生意交流，請私下與球友討論，不要構成其他人壓力。\n\n2. 不傳遞賣場連結或其他群組連結（預防球友遭受詐騙或其他不預期事件）\n\n3. 球隊要拉人也請在球敘後與球友討論，切勿在版內公開拉人，不造成其他人壓力。\n\n❤️目前記事本有最新球敘相關訊息，可以先去看看喔！如果要報名的話，直接在底下喊+1，然後再@主揪喔。\n\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n\n如果要開團，可以放到記事本讓大家加入唷😁😁"""
         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
             reply_token=event.reply_token,
             messages=[TextMessage(text=welcome_message)]
         ))
 
-# @handler.add(MemberJoinedEvent)
-# def handle_member_joined(event):
-#     with ApiClient(configuration) as api_client:
-#         line_bot_api = MessagingApi(api_client)
-#         user_id = event.joined.members[0].user_id  # Assuming one user joined
-#         try:
-#             profile = line_bot_api.get_profile(user_id)
-#             display_name = profile.display_name
-#         except LineBotApiError:
-#             display_name = "未知用戶"
-#             app.logger.error(f"Failed to get profile for user {user_id}")
-        
-#         # 构建 mention 数据结构
-#         mention_data = Mention(
-#             mentionees=[
-#                 Mentionee(
-#                     index=3,  # “歡迎”后面的位置
-#                     length=len(display_name),  # 用户名的长度
-#                     user_id=user_id
-#                 )
-#             ]
-#         )
-
-#         # 构建带 mention 的欢迎消息
-#         text_message = TextMessage(
-#             text=f"歡迎 {display_name} 加入群組！目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁 #啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁",
-#             mentions=mention_data
-#         )
-    
-#         line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
-#             reply_token=event.reply_token,
-#             messages=[text_message]
-#         ))
 
 if __name__ == "__main__":
     app.run()
