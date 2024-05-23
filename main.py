@@ -3,7 +3,7 @@ from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 from linebot.v3.webhooks import MessageEvent, TextMessageContent, JoinEvent
-from linebot.v3.webhooks import UserSource, GroupSource, RoomSource
+from linebot.v3.webhooks import MemberJoinedEvent
 
 app = Flask(__name__)
 
@@ -44,22 +44,21 @@ def handle_message(event):
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=event.message.text)]))
 
-@handler.add(JoinEvent)
-def handle_join(event):
-    if isinstance(event.source, GroupSource):
-        group_id = event.source.group_id
-        user_id = event.source.user_id
-        # Ideally, fetch user profiles from LINE to get names, for simplicity using user_id here.
-        welcome_message = "Hello!!!"
-        # welcome_message = f"""Welcome, {new_member_name}! 歡迎加入群組，目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
-# 啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"""
 
-        with ApiClient(configuration) as api_client:
-            line_bot_api = MessagingApi(api_client)
-            line_bot_api.push_message_with_http_info(ReplyMessageRequest(
-                event.source.group_id,
-                [TextMessage(text=welcome_message)]
-            ))
+
+@handler.add(MemberJoinedEvent)
+def handle_member_joined(event):
+    joined_user_ids = [member.user_id for member in event.joined.members]
+    welcome_message = "Hello!!!"
+    # welcome_message = f"歡迎新成員加入！用戶ID: {', '.join(joined_user_ids)}"
+
+    with ApiClient(configuration) as api_client:
+        line_bot_api = MessagingApi(api_client)
+        line_bot_api.reply_message_with_http_info(ReplyMessageRequest(
+            reply_token=event.reply_token,
+            messages=[TextMessage(text=welcome_message)]
+        ))
+
 
 if __name__ == "__main__":
     app.run()
