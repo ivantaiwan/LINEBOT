@@ -50,7 +50,8 @@ def handle_message(event):
 def handle_member_joined(event):
     joined_user_ids = [member.user_id for member in event.joined.members]
     welcome_message = "Hello!!!"
-    # welcome_message = f"歡迎新成員加入！用戶ID: {', '.join(joined_user_ids)}"
+    welcome_message = f"歡迎 {', '.join(joined_user_ids)} 加入群組，目前記事本有最新球敘相關訊息，可以先去看看喔，如果要報名的話，直接在底下喊+1，然後在@主揪喔，另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁
+啊如果有開團，可以@Astor，我會幫您丟到記事本唷😁😁"
 
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
