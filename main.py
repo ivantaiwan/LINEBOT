@@ -19,7 +19,7 @@ WELCOME_MESSAGE = """歡迎加入群組！群組無任何版主，由熱心的�
 FIG_GOLF_COURSE = 'https://img.freepik.com/premium-photo/view-green-golf-course-with-beautiful-sunset-generative-ai_902639-51545.jpg'
 FIG_GOLF_ICON = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/golf_icon.png'
 FIG_KARINA = 'https://upload.wikimedia.org/wikipedia/commons/1/12/230601_Karina_%28aespa%29.jpg'
-FIG_WINTER = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/golf_icon.jpeg'
+FIG_WINTER = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/winter.jpeg'
 
 TABLE_TAIPEI = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=1565443371#gid=1565443371'
 TABLE_TAOYUAN = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=577875396#gid=577875396'
