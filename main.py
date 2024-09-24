@@ -137,7 +137,12 @@ def handle_message(event):
             thumbnail_image_url=FIG_GOLF_COURSE,
             text='請選擇想查詢的地區！',
             actions=[
-                MessageAction(label='說哈囉', text='Hello!'),
+                URIAction(label='雙北', uri='https://www.google.com'),
+                URIAction(label='桃園', uri='https://www.google.com'),
+                URIAction(label='竹苗', uri='https://www.google.com'),
+                URIAction(label='中部', uri='https://www.google.com'),
+                URIAction(label='南部', uri='https://www.google.com'),
+                URIAction(label='南部', uri='https://www.google.com')
                 # URIAction(label='雙北', uri=TABLE_TAIPEI),
                 # URIAction(label='桃園', uri=TABLE_TAOYUAN),
                 # URIAction(label='竹苗', uri=TABLE_HSINCHU),
