@@ -8,6 +8,8 @@ from linebot.models import (
     URIAction, MessageAction, QuickReply, QuickReplyButton)
 from linebot.models.template import ButtonsTemplate
 
+import config
+
 app = Flask(__name__)
 
 # access env params
@@ -62,29 +64,31 @@ def handle_member_joined(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    # check user's message
     msg = event.message.text
-    if msg == '!text':
+
+    if msg == '!text':  # reply same message
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.text))
     
-    elif msg == '!Karina':
+    elif msg == '!Karina':  # Display Karina
         image_carousel_template = ImageCarouselTemplate(columns=[
-            ImageCarouselColumn(image_url=FIG_KARINA, action=MessageAction(label='KARINA!', text='KARINA!'))
+            ImageCarouselColumn(image_url=config.FIGURE['karina'], action=MessageAction(label='KARINA!', text='KARINA!'))
         ])
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='KARINA', template=image_carousel_template))
     
-    elif msg == '!Winter':
+    elif msg == '!Winter':  # Display Winter
         image_carousel_template = ImageCarouselTemplate(columns=[
-            ImageCarouselColumn(image_url=FIG_WINTER, action=MessageAction(label='Winter!', text='Winter!'))
+            ImageCarouselColumn(image_url=config.FIGURE['winter'], action=MessageAction(label='Winter!', text='Winter!'))
         ])
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='Winter', template=image_carousel_template))
 
-    elif msg == '!球場價格':
+    elif msg == '!球場價格':  # Display All Golf Course Pricing Information for Taiwan
         buttons_template = ButtonsTemplate(
             title='全台球場價格',
             thumbnail_image_url=FIG_GOLF_COURSE,
@@ -92,10 +96,7 @@ def handle_message(event):
             actions=[
                 URIAction(label='雙北', uri=TABLE_TAIPEI),
                 URIAction(label='桃竹苗', uri=TABLE_TAOYUAN_HSINCHU),
-                URIAction(label='中部南部東部', uri=TABLE_OTHER),
-                # URIAction(label='中部', uri=TABLE_CENTRAL),
-                # URIAction(label='南部', uri=TABLE_SOUTH),
-                # URIAction(label='東部', uri=TABLE_EAST)
+                URIAction(label='中部南部東部', uri=TABLE_OTHER)
             ]
         )
 
@@ -103,7 +104,7 @@ def handle_message(event):
             event.reply_token,
             TemplateSendMessage(alt_text='球場價格', template=buttons_template))
 
-    elif msg == '!約下場':
+    elif msg == '!約下場':  # Display Dashboard for Create/Join Golf Game
         buttons_template = ButtonsTemplate(
             title='高爾夫約下場',
             thumbnail_image_url=FIG_GOLF_GAME,
