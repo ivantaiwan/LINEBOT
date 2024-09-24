@@ -53,10 +53,9 @@ def callback():
 
 @handler.add(MemberJoinedEvent)
 def handle_member_joined(event):
-        welcome_message = WELCOME_MESSAGE
         line_bot_api.reply_message(
             event.reply_token,
-            TextMessage(text=welcome_message)
+            TextMessage(text=WELCOME_MESSAGE)
         )
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -97,34 +96,34 @@ def handle_message(event):
         #     TemplateSendMessage(alt_text='球場價格', template=image_carousel_template))
         GolfCoursePrice = TextSendMessage(
             text='球場價格',
-            quick_reply=QuickReply(
-                items=[
-                    QuickReplyButton(
-                        action=MessageAction(label='雙北', text='TABLE_TAIPEI'),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=MessageAction(label='桃園', text='TABLE_TAOYUAN'),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    # QuickReplyButton(
-                    #     action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
-                    #     image_url=FIG_GOLF_ICON
-                    # ),
-                    # QuickReplyButton(
-                    #     action=URIAction(label='中部', uri=TABLE_CENTRAL),
-                    #     image_url=FIG_GOLF_ICON
-                    # ),
-                    # QuickReplyButton(
-                    #     action=URIAction(label='南部', uri=TABLE_SOUTH),
-                    #     image_url=FIG_GOLF_ICON
-                    # ),
-                    # QuickReplyButton(
-                    #     action=URIAction(label='東部', uri=TABLE_EAST),
-                    #     image_url=FIG_GOLF_ICON
-                    # )
-                ]
-            )
+            # quick_reply=QuickReply(
+            #     items=[
+            #         QuickReplyButton(
+            #             action=URIAction(label='雙北', uri=TABLE_TAIPEI),
+            #             image_url=FIG_GOLF_ICON
+            #         ),
+            #         QuickReplyButton(
+            #             action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
+            #             image_url=FIG_GOLF_ICON
+            #         ),
+            #         QuickReplyButton(
+            #             action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
+            #             image_url=FIG_GOLF_ICON
+            #         ),
+            #         QuickReplyButton(
+            #             action=URIAction(label='中部', uri=TABLE_CENTRAL),
+            #             image_url=FIG_GOLF_ICON
+            #         ),
+            #         QuickReplyButton(
+            #             action=URIAction(label='南部', uri=TABLE_SOUTH),
+            #             image_url=FIG_GOLF_ICON
+            #         ),
+            #         QuickReplyButton(
+            #             action=URIAction(label='東部', uri=TABLE_EAST),
+            #             image_url=FIG_GOLF_ICON
+            #         )
+            #     ]
+            # )
         )
         line_bot_api.reply_message(
             event.reply_token,
