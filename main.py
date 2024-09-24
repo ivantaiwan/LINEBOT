@@ -100,29 +100,29 @@ def handle_message(event):
             quick_reply=QuickReply(
                 items=[
                     QuickReplyButton(
-                        action=URIAction(label='雙北', uri=TABLE_TAIPEI),
+                        action=MessageAction(label='雙北', text='TABLE_TAIPEI'),
                         image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
-                        action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
+                        action=MessageAction(label='桃園', text='TABLE_TAOYUAN'),
                         image_url=FIG_GOLF_ICON
                     ),
-                    QuickReplyButton(
-                        action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='中部', uri=TABLE_CENTRAL),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='南部', uri=TABLE_SOUTH),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='東部', uri=TABLE_EAST),
-                        image_url=FIG_GOLF_ICON
-                    )
+                    # QuickReplyButton(
+                    #     action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
+                    #     image_url=FIG_GOLF_ICON
+                    # ),
+                    # QuickReplyButton(
+                    #     action=URIAction(label='中部', uri=TABLE_CENTRAL),
+                    #     image_url=FIG_GOLF_ICON
+                    # ),
+                    # QuickReplyButton(
+                    #     action=URIAction(label='南部', uri=TABLE_SOUTH),
+                    #     image_url=FIG_GOLF_ICON
+                    # ),
+                    # QuickReplyButton(
+                    #     action=URIAction(label='東部', uri=TABLE_EAST),
+                    #     image_url=FIG_GOLF_ICON
+                    # )
                 ]
             )
         )
