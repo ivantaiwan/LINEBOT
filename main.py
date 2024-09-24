@@ -137,7 +137,7 @@ def handle_message(event):
             actions=[
                 URIAction(label='雙北', uri=TABLE_TAIPEI),
                 URIAction(label='桃竹苗', uri=TABLE_TAOYUAN_HSINCHU),
-                URIAction(label='中部東部南部', uri=TABLE_OTHER),
+                URIAction(label='中部南部東部', uri=TABLE_OTHER),
                 # URIAction(label='中部', uri=TABLE_CENTRAL),
                 # URIAction(label='南部', uri=TABLE_SOUTH),
                 # URIAction(label='東部', uri=TABLE_EAST)
