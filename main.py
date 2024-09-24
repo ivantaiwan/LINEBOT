@@ -8,8 +8,6 @@ from linebot.models import (
     URIAction, MessageAction, QuickReply, QuickReplyButton)
 from linebot.models.template import ButtonsTemplate
 
-import config
-
 app = Flask(__name__)
 
 # access env params
@@ -74,7 +72,7 @@ def handle_message(event):
     
     elif msg == '!Karina':  # Display Karina
         image_carousel_template = ImageCarouselTemplate(columns=[
-            ImageCarouselColumn(image_url=config.FIGURE['karina'], action=MessageAction(label='KARINA!', text='KARINA!'))
+            ImageCarouselColumn(image_url=FIG_KARINA, action=MessageAction(label='KARINA!', text='KARINA!'))
         ])
         line_bot_api.reply_message(
             event.reply_token,
@@ -82,7 +80,7 @@ def handle_message(event):
     
     elif msg == '!Winter':  # Display Winter
         image_carousel_template = ImageCarouselTemplate(columns=[
-            ImageCarouselColumn(image_url=config.FIGURE['winter'], action=MessageAction(label='Winter!', text='Winter!'))
+            ImageCarouselColumn(image_url=FIG_WINTER, action=MessageAction(label='Winter!', text='Winter!'))
         ])
         line_bot_api.reply_message(
             event.reply_token,
