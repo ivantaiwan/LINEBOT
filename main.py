@@ -137,14 +137,16 @@ def handle_message(event):
             thumbnail_image_url=FIG_GOLF_COURSE,
             text='請選擇想查詢的地區！',
             actions=[
-                URIAction(label='雙北', uri=TABLE_TAIPEI),
-                URIAction(label='桃園', uri=TABLE_TAOYUAN),
-                URIAction(label='竹苗', uri=TABLE_HSINCHU),
-                URIAction(label='中部', uri=TABLE_CENTRAL),
-                URIAction(label='南部', uri=TABLE_SOUTH),
-                URIAction(label='東部', uri=TABLE_EAST)
+                MessageAction(label='說哈囉', text='Hello!'),
+                # URIAction(label='雙北', uri=TABLE_TAIPEI),
+                # URIAction(label='桃園', uri=TABLE_TAOYUAN),
+                # URIAction(label='竹苗', uri=TABLE_HSINCHU),
+                # URIAction(label='中部', uri=TABLE_CENTRAL),
+                # URIAction(label='南部', uri=TABLE_SOUTH),
+                # URIAction(label='東部', uri=TABLE_EAST)
             ]
         )
+
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='球場價格', template=buttons_template))
