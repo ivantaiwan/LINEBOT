@@ -3,7 +3,9 @@ import os
 from flask import Flask, request, abort
 from linebot import WebhookHandler, LineBotApi
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import TextMessage, MessageEvent, MemberJoinedEvent, TextSendMessage, ImageCarouselTemplate, TemplateSendMessage, ImageCarouselColumn, URIAction, MessageAction, QuickReply, QuickReplyButton
+from linebot.models import (
+    TextMessage, MessageEvent, MemberJoinedEvent, TextSendMessage, ImageCarouselTemplate, TemplateSendMessage, ImageCarouselColumn,
+    URIAction, MessageAction, QuickReply, QuickReplyButton)
 
 app = Flask(__name__)
 
@@ -95,7 +97,7 @@ def handle_message(event):
         #     event.reply_token,
         #     TemplateSendMessage(alt_text='球場價格', template=image_carousel_template))
         GolfCoursePrice = TextSendMessage(
-            text='球場價格',
+            text='請選擇想查詢的地區！',
             quick_reply=QuickReply(
                 items=[
                     QuickReplyButton(
