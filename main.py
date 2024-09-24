@@ -102,27 +102,27 @@ def handle_message(event):
                 items=[
                     QuickReplyButton(
                         action=URIAction(label='雙北', uri=TABLE_TAIPEI),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
                         action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
                         action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
                         action=URIAction(label='中部', uri=TABLE_CENTRAL),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
                         action=URIAction(label='南部', uri=TABLE_SOUTH),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     ),
                     QuickReplyButton(
                         action=URIAction(label='東部', uri=TABLE_EAST),
-                        #image_url=FIG_GOLF_ICON
+                        image_url=FIG_GOLF_ICON
                     )
                 ]
             )
