@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, abort
 from linebot import WebhookHandler, LineBotApi
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import TextMessage, MessageEvent, MemberJoinedEvent, TextSendMessage, ImageCarouselTemplate, TemplateSendMessage, ImageCarouselColumn, URIAction, MessageAction
+from linebot.models import TextMessage, MessageEvent, MemberJoinedEvent, TextSendMessage, ImageCarouselTemplate, TemplateSendMessage, ImageCarouselColumn, URIAction, MessageAction, QuickReply, QuickReplyButton
 
 app = Flask(__name__)
 
@@ -96,34 +96,34 @@ def handle_message(event):
         #     TemplateSendMessage(alt_text='球場價格', template=image_carousel_template))
         GolfCoursePrice = TextSendMessage(
             text='球場價格',
-            # quick_reply=QuickReply(
-            #     items=[
-            #         QuickReplyButton(
-            #             action=URIAction(label='雙北', uri=TABLE_TAIPEI),
-            #             image_url=FIG_GOLF_ICON
-            #         ),
-            #         QuickReplyButton(
-            #             action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
-            #             image_url=FIG_GOLF_ICON
-            #         ),
-            #         QuickReplyButton(
-            #             action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
-            #             image_url=FIG_GOLF_ICON
-            #         ),
-            #         QuickReplyButton(
-            #             action=URIAction(label='中部', uri=TABLE_CENTRAL),
-            #             image_url=FIG_GOLF_ICON
-            #         ),
-            #         QuickReplyButton(
-            #             action=URIAction(label='南部', uri=TABLE_SOUTH),
-            #             image_url=FIG_GOLF_ICON
-            #         ),
-            #         QuickReplyButton(
-            #             action=URIAction(label='東部', uri=TABLE_EAST),
-            #             image_url=FIG_GOLF_ICON
-            #         )
-            #     ]
-            # )
+            quick_reply=QuickReply(
+                items=[
+                    QuickReplyButton(
+                        action=URIAction(label='雙北', uri=TABLE_TAIPEI),
+                        image_url=FIG_GOLF_ICON
+                    ),
+                    QuickReplyButton(
+                        action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
+                        image_url=FIG_GOLF_ICON
+                    ),
+                    QuickReplyButton(
+                        action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
+                        image_url=FIG_GOLF_ICON
+                    ),
+                    QuickReplyButton(
+                        action=URIAction(label='中部', uri=TABLE_CENTRAL),
+                        image_url=FIG_GOLF_ICON
+                    ),
+                    QuickReplyButton(
+                        action=URIAction(label='南部', uri=TABLE_SOUTH),
+                        image_url=FIG_GOLF_ICON
+                    ),
+                    QuickReplyButton(
+                        action=URIAction(label='東部', uri=TABLE_EAST),
+                        image_url=FIG_GOLF_ICON
+                    )
+                ]
+            )
         )
         line_bot_api.reply_message(
             event.reply_token,
