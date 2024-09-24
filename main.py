@@ -5,7 +5,7 @@ from linebot import WebhookHandler, LineBotApi
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
     TextMessage, MessageEvent, MemberJoinedEvent, TextSendMessage, ImageCarouselTemplate, TemplateSendMessage, ImageCarouselColumn,
-    URIAction, MessageAction, QuickReply, QuickReplyButton)
+    URIAction, MessageAction, QuickReply, QuickReplyButton, ButtonsTemplate)
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 # PARAMS
 WELCOME_MESSAGE = """歡迎加入群組！群組無任何版主，由熱心的球友們共同維護，要拉人請隨意，無需告知。\n\n請遵守板規如下⬇️\n\n1. 不做任何營銷及商業行為，若需生意交流，請私下與球友討論，不要構成其他人壓力。\n\n2. 不傳遞賣場連結或其他群組連結（預防球友遭受詐騙或其他不預期事件）\n\n3. 球隊要拉人也請在球敘後與球友討論，切勿在版內公開拉人，不造成其他人壓力。\n\n❤️目前記事本有最新球敘相關訊息，可以先去看看喔！如果要報名的話，直接在底下喊+1，然後再@主揪喔。\n\n另外有一些小提醒也是要看一下喔，個人簡介也麻煩填一下，開心擊球，無壓力唷😁😁\n\n如果要開團，可以放到記事本讓大家加入唷😁😁 \n\n球場價格: https://sites.google.com/view/tw-golf-price"""
-FIG_GOLF_COURSE = 'https://img.freepik.com/premium-photo/view-green-golf-course-with-beautiful-sunset-generative-ai_902639-51545.jpg'
+FIG_GOLF_COURSE = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/golf_course.jpg'
 FIG_GOLF_ICON = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/golf_icon.png'
 FIG_KARINA = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/karina.jpg'
 FIG_WINTER = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/winter.jpeg'
@@ -96,40 +96,57 @@ def handle_message(event):
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TemplateSendMessage(alt_text='球場價格', template=image_carousel_template))
-        GolfCoursePrice = TextSendMessage(
+        # GolfCoursePrice = TextSendMessage(
+        #     text='請選擇想查詢的地區！',
+        #     quick_reply=QuickReply(
+        #         items=[
+        #             QuickReplyButton(
+        #                 action=URIAction(label='雙北', uri=TABLE_TAIPEI),
+        #                 image_url=FIG_GOLF_ICON
+        #             ),
+        #             QuickReplyButton(
+        #                 action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
+        #                 image_url=FIG_GOLF_ICON
+        #             ),
+        #             QuickReplyButton(
+        #                 action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
+        #                 image_url=FIG_GOLF_ICON
+        #             ),
+        #             QuickReplyButton(
+        #                 action=URIAction(label='中部', uri=TABLE_CENTRAL),
+        #                 image_url=FIG_GOLF_ICON
+        #             ),
+        #             QuickReplyButton(
+        #                 action=URIAction(label='南部', uri=TABLE_SOUTH),
+        #                 image_url=FIG_GOLF_ICON
+        #             ),
+        #             QuickReplyButton(
+        #                 action=URIAction(label='東部', uri=TABLE_EAST),
+        #                 image_url=FIG_GOLF_ICON
+        #             )
+        #         ]
+        #     )
+        # )
+        # line_bot_api.reply_message(
+        #     event.reply_token,
+        #     GolfCoursePrice)
+
+        buttons_template = ButtonsTemplate(
+            title='全台球場價格',
+            thumbnail_image_url=FIG_GOLF_COURSE,
             text='請選擇想查詢的地區！',
-            quick_reply=QuickReply(
-                items=[
-                    QuickReplyButton(
-                        action=URIAction(label='雙北', uri=TABLE_TAIPEI),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='桃園', uri=TABLE_TAOYUAN),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='竹苗', uri=TABLE_HSINCHU),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='中部', uri=TABLE_CENTRAL),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='南部', uri=TABLE_SOUTH),
-                        image_url=FIG_GOLF_ICON
-                    ),
-                    QuickReplyButton(
-                        action=URIAction(label='東部', uri=TABLE_EAST),
-                        image_url=FIG_GOLF_ICON
-                    )
-                ]
-            )
+            actions=[
+                URIAction(label='雙北', uri=TABLE_TAIPEI),
+                URIAction(label='桃園', uri=TABLE_TAOYUAN),
+                URIAction(label='竹苗', uri=TABLE_HSINCHU),
+                URIAction(label='中部', uri=TABLE_CENTRAL),
+                URIAction(label='南部', uri=TABLE_SOUTH),
+                URIAction(label='東部', uri=TABLE_EAST)
+            ]
         )
         line_bot_api.reply_message(
             event.reply_token,
-            GolfCoursePrice)
+            TemplateSendMessage(alt_text='球場價格', template=buttons_template))
 
 
 if __name__ == "__main__":
