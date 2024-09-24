@@ -24,12 +24,10 @@ FIG_GOLF_ICON = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads
 FIG_KARINA = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/karina.jpg'
 FIG_WINTER = 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/winter.jpeg'
 
-TABLE_TAIPEI = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=1565443371#gid=1565443371'
-TABLE_TAOYUAN = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=577875396#gid=577875396'
-TABLE_HSINCHU = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=1001817199#gid=1001817199'
-TABLE_CENTRAL = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=979283829#gid=979283829'
-TABLE_SOUTH = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=1309915830#gid=1309915830'
-TABLE_EAST = 'https://docs.google.com/spreadsheets/d/1G42feYlB0fs0Z5oEJO_ADgjjRY_NkkWF9vq3NcTCVj0/edit?gid=1769279530#gid=1769279530'
+TABLE_TAIPEI = 'https://docs.google.com/spreadsheets/d/1urXlSqNkxKm67KwnN85HWFcxO93MX90M1WZ58Pnzqc8/edit?gid=0#gid=0'
+TABLE_TAOYUAN_HSINCHU = 'https://docs.google.com/spreadsheets/d/1fEX6-BmrxsBqfrpYx58QT01eEG6k1TJgKWLEFxwJ4z4/edit?gid=0#gid=0'
+TABLE_OTHER = 'https://docs.google.com/spreadsheets/d/1HEGYhE0PfVOwFqn5Avp01KSkP0UUXEUURx0MheIgJz0/edit?gid=0#gid=0'
+
 
 @app.route('/')
 def hello_world():
@@ -138,8 +136,8 @@ def handle_message(event):
             text='請選擇想查詢的地區！',
             actions=[
                 URIAction(label='雙北', uri=TABLE_TAIPEI),
-                URIAction(label='桃園', uri=TABLE_TAOYUAN),
-                URIAction(label='竹苗', uri=TABLE_HSINCHU),
+                URIAction(label='桃竹苗', uri=TABLE_TAOYUAN_HSINCHU),
+                URIAction(label='中部東部南部', uri=TABLE_OTHER),
                 # URIAction(label='中部', uri=TABLE_CENTRAL),
                 # URIAction(label='南部', uri=TABLE_SOUTH),
                 # URIAction(label='東部', uri=TABLE_EAST)
