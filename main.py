@@ -96,10 +96,9 @@ def handle_message(event):
         buttons_template = ButtonsTemplate(
             title='高爾夫約下場',
             thumbnail_image_url=config.FIGURE['golf_game'],
-            text='請選擇！',
+            text='請點選以下網址，可以新增或加入現有球局～',
             actions=[
-                MessageAction(label='創建與編輯球局', text='Coming Soon!'),
-                MessageAction(label='加入現有球局', text='Coming Soon!')
+                URIAction(label='揪打球！', uri=config.LINK['home'])
             ]
         )
 

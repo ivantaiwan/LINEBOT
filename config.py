@@ -16,3 +16,7 @@ FIGURE = {
     'karina': 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/karina.jpg',
     'winter': 'https://raw.githubusercontent.com/ivantaiwan/LINEBOT/refs/heads/main/image/winter.jpeg'
 }
+
+LINK = {
+    'home': 'https://golfweb-frontend.onrender.com',
+}
