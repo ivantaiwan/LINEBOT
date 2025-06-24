@@ -25,6 +25,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 # get Bot User ID
 bot_info = line_bot_api.get_bot_info()
 BOT_USER_ID = bot_info.user_id
+BOT_DISPLAY_NAME = "群組專用 AI"
 
 # set OpenAI API key
 openai.api_key = OPENAI_API_KEY
@@ -136,21 +137,19 @@ def handle_message(event):
     
     # ChatGPT
     if event.source.type in ['group', 'room']:
-        mention = event.message.mention
-        if mention and any(m.user_id == BOT_USER_ID for m in mention.mentionees):
-            cleaned_msg = msg
-            for m in mention.mentionees:
-                if m.user_id == BOT_USER_ID:
-                    cleaned_msg = cleaned_msg.replace(m.text, "").strip()
+        if not mention or not any(m.user_id == BOT_USER_ID for m in mention.mentionees):
+            return
+        
+        cleaned_msg = msg.replace(BOT_DISPLAY_NAME, "").strip()
                 
-            try:
-                answer = ask_chatgpt(cleaned_msg)
-            except:
-                answer = "抱歉，AI無法回答你的問題。"
+        try:
+            answer = ask_chatgpt(cleaned_msg)
+        except:
+            answer = "抱歉，AI無法回答你的問題。"
 
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=answer)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=answer)
             )
 
 
