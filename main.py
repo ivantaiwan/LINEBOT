@@ -141,7 +141,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='高爾夫約下場', template=buttons_template))
-
+        
         replied = True
     
     # ChatGPT
