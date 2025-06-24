@@ -137,21 +137,23 @@ def handle_message(event):
             TemplateSendMessage(alt_text='高爾夫約下場', template=buttons_template))
     
     # ChatGPT
+    # only if no explicit command was matched
+    # This block will now only execute if the message didn't trigger any of the above commands.
     if event.source.type in ['group', 'room']:
         if not mention or not any(m.user_id == BOT_USER_ID for m in mention.mentionees):
-            return
-        
-        cleaned_msg = msg.replace(BOT_DISPLAY_NAME, "").strip()
-                
-        try:
-            answer = ask_chatgpt(cleaned_msg)
-        except Exception as e:
-            answer = "抱歉，AI無法回答你的問題。\nError: " + str(e)
+            cleaned_msg = msg.replace(BOT_DISPLAY_NAME, "").strip()
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=answer)
-            )
+            try:
+                answer = ask_chatgpt(cleaned_msg)
+            except Exception as e:
+                answer = "抱歉，AI無法回答你的問題。\nError:" + str(e)
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=answer)
+                )
+
+            return # IMPORTANT: Stop processing after replying for ChatGPT
 
 
 if __name__ == "__main__":
