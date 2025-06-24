@@ -1,5 +1,6 @@
 import os
 
+import openai
 from flask import Flask, request, abort
 from linebot import WebhookHandler, LineBotApi
 from linebot.exceptions import InvalidSignatureError
@@ -16,10 +17,30 @@ app = Flask(__name__)
 # access env params
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
+# get Bot User ID
+bot_info = line_bot_api.get_bot_info()
+BOT_USER_ID = bot_info.user_id
+
+# set OpenAI API key
+openai.api_key = OPENAI_API_KEY
+
+def ask_chatgpt(prompt: str) -> str:
+    """call OpenAI ChatGPT with system prompt"""
+    response = openai.ChatCompletion.create(
+        model="gpt-4.1-nano",
+        messages=[
+            {"role": "system", "content": "你是一位熱情但謹慎的高爾夫教練機器人，活躍於一個用來揪團打高爾夫的群組中。請全程使用繁體中文回答，必要時可搭配英文術語做簡要補充。你應保持禮貌、語氣親切但不隨便，回答要簡潔、明確，不知道的問題請直接說不知道，絕對不要胡亂猜測或瞎掰。你應避免回應任何帶有惡意、挑釁、危險、或可能對他人造成傷害的問題與請求。你特別擅長解答高爾夫相關的問題，例如：打球技巧、球具介紹、場地規則、服裝禮儀等。"},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=500,
+        temperature=0.7,
+    )
+    return response.choices[0].message.content.strip()
 
 @app.route('/')
 def hello_world():
@@ -54,6 +75,13 @@ def handle_member_joined(event):
 def handle_message(event):
     # check user's message
     msg = event.message.text
+    mention = None
+
+    # Check if the bot was mentioned (with @) in the group
+    if event.source.type in ['group', 'room']:
+        mention = event.message.mention
+    else:
+        mention = None
 
     if msg == '!text':  # reply same message
         line_bot_api.reply_message(
@@ -105,6 +133,24 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='高爾夫約下場', template=buttons_template))
+    
+    # ChatGPT
+    if event.source.type in ['group', 'room']:
+        mention = event.message.mention
+        if mention and any(m.mentioned.user_id == BOT_USER_ID for m in mention.mentionees):
+            cleaned_msg = msg
+            for m in mention.mentionees:
+                if m.mentioned.user_id == BOT_USER_ID:
+                    cleaned_msg = cleaned_msg.replace(m.text, "").strip()
+            try:
+                answer = ask_chatgpt(cleaned_msg)
+            except:
+                answer = "抱歉，AI無法回答你的問題。"
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=answer)
+            )
 
 
 if __name__ == "__main__":
