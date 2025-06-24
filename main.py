@@ -144,8 +144,8 @@ def handle_message(event):
                 
         try:
             answer = ask_chatgpt(cleaned_msg)
-        except:
-            answer = "抱歉，AI無法回答你的問題。"
+        except Exception as e:
+            answer = "抱歉，AI無法回答你的問題。\nError: " + str(e)
 
         line_bot_api.reply_message(
             event.reply_token,
