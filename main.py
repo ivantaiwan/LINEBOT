@@ -91,6 +91,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=event.message.text))
         replied = True
+        return
     
     elif msg == '!Karina':  # Display Karina
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -100,6 +101,7 @@ def handle_message(event):
             event.reply_token,
             TemplateSendMessage(alt_text='KARINA', template=image_carousel_template))
         replied = True
+        return
     
     elif msg == '!Winter':  # Display Winter
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -109,6 +111,7 @@ def handle_message(event):
             event.reply_token,
             TemplateSendMessage(alt_text='Winter', template=image_carousel_template))
         replied = True
+        return
 
     elif msg in ['!球場價格', '球場價格!', '！球場價格', '球場價格！']:  # Display All Golf Course Pricing Information for Taiwan
         buttons_template = ButtonsTemplate(
@@ -127,6 +130,7 @@ def handle_message(event):
             TemplateSendMessage(alt_text='球場價格', template=buttons_template))
         
         replied = True
+        return
 
     elif msg in ['!約下場', '約下場!', '！約下場', '約下場！']:  # Display Dashboard for Create/Join Golf Game
         buttons_template = ButtonsTemplate(
@@ -143,6 +147,7 @@ def handle_message(event):
             TemplateSendMessage(alt_text='高爾夫約下場', template=buttons_template))
         
         replied = True
+        return
     
     # ChatGPT
     # only if no explicit command was matched
