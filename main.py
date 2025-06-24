@@ -148,7 +148,7 @@ def handle_message(event):
     # only if no explicit command was matched
     # This block will now only execute if the message didn't trigger any of the above commands.
     if event.source.type in ['group', 'room']:
-        if mention or not any(m.user_id == BOT_USER_ID for m in mention.mentionees):
+        if mention is not None and any(m.user_id == BOT_USER_ID for m in mention.mentionees):
             cleaned_msg = msg.replace(BOT_DISPLAY_NAME, "").strip()
 
             try:
