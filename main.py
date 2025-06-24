@@ -78,6 +78,7 @@ def handle_message(event):
     # check user's message
     msg = event.message.text
     mention = None
+    replied = False
 
     # Check if the bot was mentioned (with @) in the group
     if event.source.type in ['group', 'room']:
@@ -89,6 +90,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.text))
+            replied = True
     
     elif msg == '!Karina':  # Display Karina
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -97,6 +99,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='KARINA', template=image_carousel_template))
+            replied = True
     
     elif msg == '!Winter':  # Display Winter
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -105,6 +108,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='Winter', template=image_carousel_template))
+            replied = True
 
     elif msg in ['!球場價格', '球場價格!', '！球場價格', '球場價格！']:  # Display All Golf Course Pricing Information for Taiwan
         buttons_template = ButtonsTemplate(
@@ -121,6 +125,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='球場價格', template=buttons_template))
+        
+        replied = True
 
     elif msg in ['!約下場', '約下場!', '！約下場', '約下場！']:  # Display Dashboard for Create/Join Golf Game
         buttons_template = ButtonsTemplate(
@@ -135,12 +141,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='高爾夫約下場', template=buttons_template))
+
+        replied = True
     
     # ChatGPT
     # only if no explicit command was matched
     # This block will now only execute if the message didn't trigger any of the above commands.
     if event.source.type in ['group', 'room']:
-        if not mention or not any(m.user_id == BOT_USER_ID for m in mention.mentionees):
+        if mention or not any(m.user_id == BOT_USER_ID for m in mention.mentionees):
             cleaned_msg = msg.replace(BOT_DISPLAY_NAME, "").strip()
 
             try:
@@ -148,10 +156,13 @@ def handle_message(event):
             except Exception as e:
                 answer = "抱歉，AI無法回答你的問題。\nError:" + str(e)
 
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=answer)
-                )
+            if not replied:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text=answer))
+                replied = True
+            else:
+                line_bot_api.push_message(event.source.user_id, TextSendMessage(text=answer))
 
             return # IMPORTANT: Stop processing after replying for ChatGPT
 
