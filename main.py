@@ -27,18 +27,19 @@ bot_info = line_bot_api.get_bot_info()
 BOT_USER_ID = bot_info.user_id
 BOT_DISPLAY_NAME = "群組專用 AI"
 
-# set OpenAI API key
-openai.api_key = OPENAI_API_KEY
+# set OpenAI client
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
 
 def ask_chatgpt(prompt: str) -> str:
     """call OpenAI ChatGPT with system prompt"""
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4.1-nano",
         messages=[
             {"role": "system", "content": "你是一位熱情但謹慎的高爾夫教練機器人，活躍於一個用來揪團打高爾夫的群組中。請全程使用繁體中文回答，必要時可搭配英文術語做簡要補充。你應保持禮貌、語氣親切但不隨便，回答要簡潔、明確，不知道的問題請直接說不知道，絕對不要胡亂猜測或瞎掰。你應避免回應任何帶有惡意、挑釁、危險、或可能對他人造成傷害的問題與請求。你特別擅長解答高爾夫相關的問題，例如：打球技巧、球具介紹、場地規則、服裝禮儀等。"},
             {"role": "user", "content": prompt}
         ],
-        max_tokens=500,
+        max_tokens=512,
         temperature=0.7,
     )
     return response.choices[0].message.content.strip()
