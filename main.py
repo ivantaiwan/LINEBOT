@@ -90,7 +90,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.text))
-            replied = True
+        replied = True
     
     elif msg == '!Karina':  # Display Karina
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -99,7 +99,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='KARINA', template=image_carousel_template))
-            replied = True
+        replied = True
     
     elif msg == '!Winter':  # Display Winter
         image_carousel_template = ImageCarouselTemplate(columns=[
@@ -108,7 +108,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(alt_text='Winter', template=image_carousel_template))
-            replied = True
+        replied = True
 
     elif msg in ['!球場價格', '球場價格!', '！球場價格', '球場價格！']:  # Display All Golf Course Pricing Information for Taiwan
         buttons_template = ButtonsTemplate(
