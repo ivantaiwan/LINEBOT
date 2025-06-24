@@ -137,11 +137,12 @@ def handle_message(event):
     # ChatGPT
     if event.source.type in ['group', 'room']:
         mention = event.message.mention
-        if mention and any(m.mentioned.user_id == BOT_USER_ID for m in mention.mentionees):
+        if mention and any(m.user_id == BOT_USER_ID for m in mention.mentionees):
             cleaned_msg = msg
             for m in mention.mentionees:
-                if m.mentioned.user_id == BOT_USER_ID:
+                if m.user_id == BOT_USER_ID:
                     cleaned_msg = cleaned_msg.replace(m.text, "").strip()
+                
             try:
                 answer = ask_chatgpt(cleaned_msg)
             except:
